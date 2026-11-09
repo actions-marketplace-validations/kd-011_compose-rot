@@ -1,6 +1,6 @@
 {
   "name": "compose-rot",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Scan docker compose files for images whose upstream is archived, removed or relicensed.",
   "type": "module",
   "license": "MIT",

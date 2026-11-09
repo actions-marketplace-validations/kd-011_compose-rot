@@ -1,0 +1,49 @@
+name: compose-rot
+description: Fail the build when a compose file runs an image whose upstream is archived, removed or relicensed.
+author: kd-011
+branding:
+  icon: package
+  color: orange
+
+inputs:
+  paths:
+    description: Files or directories to scan, separated by spaces. Globs are not expanded.
+    default: "."
+  online:
+    description: Also ask the registry and GitHub about each image's upstream repo.
+    default: "false"
+  github-token:
+    description: Token for the GitHub API in online mode. The default raises the rate limit.
+    default: ${{ github.token }}
+  ignore:
+    description: Images to skip, separated by spaces.
+    default: ""
+  exclude:
+    description: Directory names to skip, separated by spaces.
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v7
+      with:
+        node-version: 22
+    - name: Run compose-rot
+      shell: bash
+      env:
+        IN_PATHS: ${{ inputs.paths }}
+        IN_ONLINE: ${{ inputs.online }}
+        IN_IGNORE: ${{ inputs.ignore }}
+        IN_EXCLUDE: ${{ inputs.exclude }}
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+      run: |
+        # Inputs go through env vars, never interpolated into the script, so a
+        # crafted value cannot inject shell. Globbing is off so a path like
+        # "*" stays a literal argument.
+        set -f
+        read -ra paths <<< "$IN_PATHS"
+        args=(check "${paths[@]}")
+        [ "$IN_ONLINE" = "true" ] && args+=(--online)
+        for image in $IN_IGNORE; do args+=(--ignore "$image"); done
+        for dir in $IN_EXCLUDE; do args+=(--exclude "$dir"); done
+        node "$GITHUB_ACTION_PATH/bin/compose-rot.mjs" "${args[@]}"

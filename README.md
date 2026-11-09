@@ -54,6 +54,10 @@ Online it can add:
 
 A licence GitHub cannot identify (`NOASSERTION`) is listed as unknown. Without `GITHUB_TOKEN` GitHub allows 60 requests an hour, and compose-rot waits when it hits the limit. Nothing is cached on disk and nothing is sent anywhere except the registry and the GitHub API.
 
+## In CI
+
+`uses: kd-011/compose-rot@v0` runs the same check in a workflow and fails the step on a finding. [docs/action.md](docs/action.md) has a full example and the inputs.
+
 ## What the findings mean
 
 REMOVED means the image or its free catalogue is gone or moved. ARCHIVED means the upstream repo is read-only. DEPRECATED means the maintainer or registry has marked it so. RELICENSED means the licence changed, and the finding names both. NON_OSI means the licence is one the OSI has not approved. The wording states a fact and a date and leaves the decision to you. [docs/reference.md](docs/reference.md) has each kind in full.

@@ -30,3 +30,16 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - run: node --test
+
+  action:
+    name: the action runs the demo layout
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - id: scan
+        uses: ./
+        with:
+          paths: demo/homelab
+        continue-on-error: true
+      - name: The demo has findings, so the step must fail
+        run: test "${{ steps.scan.outcome }}" = "failure"

@@ -2,6 +2,10 @@
 
 Notable changes are listed here, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [semantic versioning](https://semver.org/).
 
+## 0.1.1 - 2026-11-09
+
+- A GitHub Action, `kd-011/compose-rot`, runs `check` in a workflow and fails the step on a finding. It takes `paths`, `online`, `github-token`, `ignore` and `exclude`. See [docs/action.md](docs/action.md).
+
 ## 0.1.0 - 2026-11-03
 
 First version.
