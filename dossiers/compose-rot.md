@@ -3,7 +3,7 @@ slug: compose-rot
 name: compose-rot
 repo: .
 status: active
-last_verified: 2026-11-03
+last_verified: 2026-11-10
 tags: [cli, node, docker, compose, supply-chain]
 ---
 
@@ -33,6 +33,6 @@ A command line tool that reads docker compose files and reports images whose ups
 - Dependabot opens grouped weekly updates for GitHub Actions and qualifying ones merge automatically once CI is green. <!-- src: .github/dependabot.yml, .github/scripts/automerge-eligible.mjs -->
 
 <!-- auto:start -->
-- package: compose-rot 0.1.0
+- package: compose-rot 0.1.1
 - npm scripts (1): test
 <!-- auto:end -->
